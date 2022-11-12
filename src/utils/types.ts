@@ -13,6 +13,7 @@ export type ExploreStackParams = {
 
 export type RewardsStackParams = {
   RewardsScreen: undefined;
+  CameraScreen: undefined;
 };
 
 export type ExploreScreenProps = CompositeNavigationProp<

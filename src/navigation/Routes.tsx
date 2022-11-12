@@ -8,6 +8,7 @@ import {
   RewardsStackParams,
 } from '../utils/types';
 import RewardsScreen from '../screens/Rewards.screen';
+import CameraScreen from '../screens/Camera.screen';
 
 const ExploreStack = () => {
   const NativeExploreStack = createNativeStackNavigator<ExploreStackParams>();
@@ -28,6 +29,7 @@ const RewardsStack = () => {
   return (
     <NativeShelfStack.Navigator>
       <NativeShelfStack.Screen name="RewardsScreen" component={RewardsScreen} />
+      <NativeShelfStack.Screen name="CameraScreen" component={CameraScreen} />
     </NativeShelfStack.Navigator>
   );
 };
