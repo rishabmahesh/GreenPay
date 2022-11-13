@@ -1,4 +1,12 @@
-import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Pressable,
+  Button,
+} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RewardsScreenProps} from '../utils/types';
@@ -118,12 +126,20 @@ function RewardsScreen() {
   }
 
   function displayRewardItem(item: {
-    brand_name: any;
-    points: any;
-    img_url: any;
+    brand_name: string;
+    points: string;
+    img_url: string;
   }) {
     return (
-      <View style={styles.rewardItemBox}>
+      <Pressable
+        style={styles.rewardItemBox}
+        onPress={() =>
+          navigation.navigate('RedeemScreen', {
+            brand_name: item.brand_name,
+            img_url: item.img_url,
+            points: item.points,
+          })
+        }>
         <View>
           <Image source={{uri: item.img_url}} style={styles.brandImage} />
         </View>
@@ -132,7 +148,7 @@ function RewardsScreen() {
           <Text>{item.brand_name}</Text>
           <Text>{item.points}</Text>
         </View>
-      </View>
+      </Pressable>
     );
   }
 
@@ -142,8 +158,8 @@ function RewardsScreen() {
         <Text style={styles.brandsText}>Brands</Text>
 
         <ScrollView horizontal={false}>
-          {rewardsList.map(item => {
-            return displayRewardItem(item);
+          {rewardsList.map((item, index) => {
+            return <View key={index}>{displayRewardItem(item)}</View>;
           })}
         </ScrollView>
       </View>

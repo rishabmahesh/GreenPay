@@ -2,6 +2,12 @@ import {MaterialBottomTabNavigationProp} from '@react-navigation/material-bottom
 import {CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
+export type rewardItem = {
+  brand_name: string;
+  points: string;
+  img_url: string;
+};
+
 export type BottomTabNavigatorParams = {
   Explore: undefined;
   Rewards: undefined;
@@ -13,6 +19,7 @@ export type ExploreStackParams = {
 
 export type RewardsStackParams = {
   RewardsScreen: undefined;
+  RedeemScreen: rewardItem;
   CameraScreen: undefined;
 };
 

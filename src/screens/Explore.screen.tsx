@@ -171,8 +171,8 @@ function ExploreScreen() {
         <Text style={styles.brandsText}>Brands</Text>
 
         <ScrollView horizontal={true}>
-          {brandList.map(item => {
-            return displayBrandItem(item);
+          {brandList.map((item, index) => {
+            return <View key={index}>{displayBrandItem(item)}</View>;
           })}
         </ScrollView>
       </View>
@@ -204,8 +204,8 @@ function ExploreScreen() {
         <Text style={styles.brandsText}>Offers</Text>
 
         <ScrollView horizontal={false}>
-          {offerList.map(item => {
-            return renderOfferItem(item);
+          {offerList.map((item, index) => {
+            return <View key={index}>{renderOfferItem(item)}</View>;
           })}
         </ScrollView>
       </View>

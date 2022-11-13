@@ -9,6 +9,7 @@ import {
 } from '../utils/types';
 import RewardsScreen from '../screens/Rewards.screen';
 import CameraScreen from '../screens/Camera.screen';
+import RedeemScreen from '../screens/Redeem.screen';
 
 const ExploreStack = () => {
   const NativeExploreStack = createNativeStackNavigator<ExploreStackParams>();
@@ -29,6 +30,7 @@ const RewardsStack = () => {
   return (
     <NativeShelfStack.Navigator>
       <NativeShelfStack.Screen name="RewardsScreen" component={RewardsScreen} />
+      <NativeShelfStack.Screen name="RedeemScreen" component={RedeemScreen} />
       <NativeShelfStack.Screen name="CameraScreen" component={CameraScreen} />
     </NativeShelfStack.Navigator>
   );
