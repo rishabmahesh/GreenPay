@@ -10,6 +10,7 @@ export type rewardItem = {
 
 export type BottomTabNavigatorParams = {
   Explore: undefined;
+  Camera: undefined;
   Rewards: undefined;
 };
 
@@ -17,10 +18,14 @@ export type ExploreStackParams = {
   ExploreScreen: undefined;
 };
 
+export type CameraStackParams = {
+  CameraScreen: undefined;
+  SummaryScreen: any;
+};
+
 export type RewardsStackParams = {
   RewardsScreen: undefined;
   RedeemScreen: rewardItem;
-  CameraScreen: undefined;
 };
 
 export type ExploreScreenProps = CompositeNavigationProp<
@@ -30,5 +35,10 @@ export type ExploreScreenProps = CompositeNavigationProp<
 
 export type RewardsScreenProps = CompositeNavigationProp<
   NativeStackNavigationProp<RewardsStackParams>,
+  MaterialBottomTabNavigationProp<BottomTabNavigatorParams>
+>;
+
+export type CameraScreenProps = CompositeNavigationProp<
+  NativeStackNavigationProp<CameraStackParams>,
   MaterialBottomTabNavigationProp<BottomTabNavigatorParams>
 >;

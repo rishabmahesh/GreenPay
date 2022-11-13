@@ -94,6 +94,7 @@ function ExploreScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#C6F5C7',
     },
     topPart: {
       flexDirection: 'row',
@@ -102,7 +103,6 @@ function ExploreScreen() {
       paddingHorizontal: 16,
       height: 60,
       width: '100%',
-      backgroundColor: 'red',
     },
     welcomeText: {
       fontSize: 28,

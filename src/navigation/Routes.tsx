@@ -4,12 +4,15 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import ExploreScreen from '../screens/Explore.screen';
 import {
   BottomTabNavigatorParams,
+  CameraStackParams,
   ExploreStackParams,
   RewardsStackParams,
 } from '../utils/types';
 import RewardsScreen from '../screens/Rewards.screen';
 import CameraScreen from '../screens/Camera.screen';
 import RedeemScreen from '../screens/Redeem.screen';
+import SummaryScreen from '../screens/Summary.screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ExploreStack = () => {
   const NativeExploreStack = createNativeStackNavigator<ExploreStackParams>();
@@ -31,7 +34,17 @@ const RewardsStack = () => {
     <NativeShelfStack.Navigator>
       <NativeShelfStack.Screen name="RewardsScreen" component={RewardsScreen} />
       <NativeShelfStack.Screen name="RedeemScreen" component={RedeemScreen} />
+    </NativeShelfStack.Navigator>
+  );
+};
+
+const CameraStack = () => {
+  const NativeShelfStack = createNativeStackNavigator<CameraStackParams>();
+
+  return (
+    <NativeShelfStack.Navigator>
       <NativeShelfStack.Screen name="CameraScreen" component={CameraScreen} />
+      <NativeShelfStack.Screen name="SummaryScreen" component={SummaryScreen} />
     </NativeShelfStack.Navigator>
   );
 };
@@ -40,8 +53,9 @@ function Routes() {
   const Tab = createMaterialBottomTabNavigator<BottomTabNavigatorParams>();
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator barStyle={{backgroundColor: '#00B8AB'}}>
       <Tab.Screen name="Explore" component={ExploreStack} />
+      <Tab.Screen name="Camera" component={CameraStack} />
       <Tab.Screen name="Rewards" component={RewardsStack} />
     </Tab.Navigator>
   );

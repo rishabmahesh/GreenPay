@@ -5,13 +5,11 @@ import {
   ScrollView,
   Image,
   Pressable,
-  Button,
   RefreshControl,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RewardsScreenProps} from '../utils/types';
-import {Camera} from 'react-native-vision-camera';
 import service from '../services/service';
 
 function RewardsScreen() {
@@ -69,6 +67,7 @@ function RewardsScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#C6F5C7',
     },
     topPart: {
       flexDirection: 'row',
@@ -77,7 +76,6 @@ function RewardsScreen() {
       paddingHorizontal: 16,
       height: 60,
       width: '100%',
-      backgroundColor: 'red',
     },
     rewardsText: {
       fontSize: 28,
@@ -116,15 +114,6 @@ function RewardsScreen() {
       borderRadius: 16,
     },
   });
-
-  const openCamera = async () => {
-    const cameraPermission = await Camera.getCameraPermissionStatus();
-    if (cameraPermission !== 'authorized') {
-      await Camera.requestCameraPermission();
-    } else if (cameraPermission === 'authorized') {
-      navigation.navigate('CameraScreen');
-    }
-  };
 
   function topPart() {
     return (
@@ -203,7 +192,6 @@ function RewardsScreen() {
         {topPart()}
         {displayPoints()}
         {displayRewards()}
-        {/* <Button title="Open Camera" onPress={openCamera} color="#841584" /> */}
       </View>
     </ScrollView>
   );
