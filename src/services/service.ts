@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default class service {
   public static async sendImage(base64Image: string) {
     console.log(JSON.stringify({Image: base64Image}));
