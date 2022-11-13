@@ -4,6 +4,8 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {ExploreScreenProps} from '../utils/types';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {Button} from 'react-native-paper';
+import RNFS from 'react-native-fs';
+import service from '../services/service';
 
 function CameraScreen() {
   const navigation = useNavigation<ExploreScreenProps>();
@@ -11,6 +13,8 @@ function CameraScreen() {
   const devices = useCameraDevices();
   const device = devices.back;
   const camera = useRef<Camera>(null);
+
+  const [base64, setBase64] = React.useState<string>('');
 
   const isFocused = useIsFocused();
 
@@ -39,8 +43,17 @@ function CameraScreen() {
   }
 
   const takePhoto = async () => {
-    const photo = await camera.current?.takePhoto();
-    console.log(photo);
+    const photo = await camera.current?.takePhoto({
+      skipMetadata: true,
+      enableAutoStabilization: true,
+    });
+    console.log(photo?.path);
+    if (photo) {
+      await RNFS.readFile(photo.path, 'base64').then(async res => {
+        console.log(res);
+        await service.sendImage(res);
+      });
+    }
   };
 
   function renderFooter() {

@@ -1,6 +1,7 @@
 package com.greenpay;
 
 import android.app.Application;
+import com.rnfs.RNFSPackage;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
