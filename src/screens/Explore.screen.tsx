@@ -1,14 +1,18 @@
-import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  RefreshControl,
+} from 'react-native';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {ExploreScreenProps} from '../utils/types';
 import {Searchbar} from 'react-native-paper';
 import service from '../services/service';
 
 function ExploreScreen() {
-  const navigation = useNavigation<ExploreScreenProps>();
-
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery] = React.useState('');
+  const [refreshing] = React.useState(false);
   const [brandList, setBrandList] = React.useState([
     {
       brand_name: 'GoldFish',
@@ -235,8 +239,24 @@ function ExploreScreen() {
     );
   }
 
+  const refetchData = async () => {
+    const response = await service.home();
+    if (response.brands) {
+      setBrandList(response.brands);
+    }
+    if (response.offers) {
+      setOfferList(response.offers);
+    }
+    if (response.users.user1) {
+      setUserPoints(response.users.user1.points);
+    }
+  };
+
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={refetchData} />
+      }>
       <View style={styles.container}>
         {topPart()}
         {searchBar()}

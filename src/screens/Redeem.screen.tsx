@@ -2,11 +2,15 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RewardsScreenProps} from '../utils/types';
+import {Button, TextInput} from 'react-native-paper';
+import service from '../services/service';
 
 function RedeemScreen({route}: any) {
   const navigation = useNavigation<RewardsScreenProps>();
 
   const {brand_name, points, img_url} = route.params;
+  const [text, setText] = React.useState('');
+  const [pressed, setPressed] = React.useState(false);
 
   const styles = StyleSheet.create({
     container: {
@@ -31,6 +35,22 @@ function RedeemScreen({route}: any) {
       width: 200,
       height: 200,
     },
+    emailView: {
+      paddingHorizontal: 16,
+    },
+    emailText: {
+      fontSize: 20,
+      color: 'black',
+      marginHorizontal: 4,
+    },
+    button: {
+      width: 100,
+    },
+    buttonView: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 20,
+    },
   });
 
   function renderImage() {
@@ -51,16 +71,45 @@ function RedeemScreen({route}: any) {
 
   function renderEmailInput() {
     return (
-      <View>
-        <Text>Enter your email</Text>
+      <View style={styles.emailView}>
+        <Text style={styles.emailText}>
+          Enter your email to redeem points:{' '}
+        </Text>
+        <TextInput
+          label="Email"
+          value={text}
+          onChangeText={email => setText(email)}
+        />
       </View>
     );
   }
+
+  function submitButton() {
+    return (
+      <View style={styles.buttonView}>
+        <Button mode="contained" style={styles.button} onPress={buttonPressed}>
+          Submit
+        </Button>
+      </View>
+    );
+  }
+
+  const buttonPressed = async () => {
+    await service.reducePoints(points);
+    setPressed(true);
+  };
 
   return (
     <View style={styles.container}>
       {renderImage()}
       {renderPoints()}
+      {renderEmailInput()}
+      {submitButton()}
+      {pressed && (
+        <Text style={styles.emailText}>
+          You have successfully redeemed {points} points!
+        </Text>
+      )}
     </View>
   );
 }

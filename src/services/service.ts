@@ -7,9 +7,7 @@ export default class service {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({userID: 'user1', Image: base64Image}),
-    })
-      .then(response => response.json())
-      .then(response => console.log(JSON.stringify(response)));
+    }).then(response => response.json());
   }
 
   public static async home() {
@@ -36,17 +34,18 @@ export default class service {
       'https://greenpay-backend-flask-l65dlhbnna-uc.a.run.app/get_rewards',
       requestOptions,
     )
-      .then(response => response.text())
+      .then(response => response.json())
       .catch(error => console.log('error', error));
   }
 
-  public static async reducePoints() {
-    fetch('https://greenpay-backend-flask-l65dlhbnna-uc.a.run.app/scan', {
+  public static async reducePoints(cost: number) {
+    fetch('https://greenpay-backend-flask-l65dlhbnna-uc.a.run.app/redeem', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({userID: 'user1', cost: cost}),
     })
       .then(response => response.json())
       .then(response => console.log(JSON.stringify(response)));

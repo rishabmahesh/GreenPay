@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   Button,
+  RefreshControl,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -48,10 +49,18 @@ function RewardsScreen() {
         'https://www.campbellsfoodservice.com/wp-content/uploads/2016/01/goldfish-logo-400x150.png',
     },
   ]);
+  const [userPoints, setUserPoints] = React.useState(1000);
+  const [refreshing] = React.useState(false);
 
   React.useEffect(() => {
     async function fetchData() {
       const response = await service.rewards();
+      if (response.rewards) {
+        setRewardsList(response.rewards);
+      }
+      if (response.balance) {
+        setUserPoints(response.balance);
+      }
     }
 
     fetchData();
@@ -129,14 +138,14 @@ function RewardsScreen() {
     return (
       <View style={styles.displayUserPoints}>
         <Text style={styles.pointsText}>Your Points</Text>
-        <Text style={styles.pointsText}>0</Text>
+        <Text style={styles.pointsText}>{userPoints}</Text>
       </View>
     );
   }
 
   function displayRewardItem(item: {
-    brand_name: string;
-    points: string;
+    product_name: string;
+    cost: string;
     img_url: string;
   }) {
     return (
@@ -144,9 +153,9 @@ function RewardsScreen() {
         style={styles.rewardItemBox}
         onPress={() =>
           navigation.navigate('RedeemScreen', {
-            brand_name: item.brand_name,
+            brand_name: item.product_name,
             img_url: item.img_url,
-            points: item.points,
+            points: item.cost,
           })
         }>
         <View>
@@ -154,8 +163,8 @@ function RewardsScreen() {
         </View>
 
         <View>
-          <Text>{item.brand_name}</Text>
-          <Text>{item.points}</Text>
+          <Text>{item.product_name}</Text>
+          <Text>{item.cost}</Text>
         </View>
       </Pressable>
     );
@@ -164,7 +173,7 @@ function RewardsScreen() {
   function displayRewards() {
     return (
       <View style={styles.brandsStyle}>
-        <Text style={styles.brandsText}>Brands</Text>
+        <Text style={styles.brandsText}>Available rewards: </Text>
 
         <ScrollView horizontal={false}>
           {rewardsList.map((item, index) => {
@@ -175,8 +184,21 @@ function RewardsScreen() {
     );
   }
 
+  const refetchData = async () => {
+    const response = await service.rewards();
+    if (response.rewards) {
+      setRewardsList(response.rewards);
+    }
+    if (response.balance) {
+      setUserPoints(response.balance);
+    }
+  };
+
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={refetchData} />
+      }>
       <View style={styles.container}>
         {topPart()}
         {displayPoints()}
