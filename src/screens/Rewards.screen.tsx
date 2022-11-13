@@ -11,6 +11,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RewardsScreenProps} from '../utils/types';
 import {Camera} from 'react-native-vision-camera';
+import service from '../services/service';
 
 function RewardsScreen() {
   const navigation = useNavigation<RewardsScreenProps>();
@@ -47,6 +48,14 @@ function RewardsScreen() {
         'https://www.campbellsfoodservice.com/wp-content/uploads/2016/01/goldfish-logo-400x150.png',
     },
   ]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const response = await service.rewards();
+    }
+
+    fetchData();
+  }, []);
 
   const styles = StyleSheet.create({
     container: {

@@ -3,6 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ExploreScreenProps} from '../utils/types';
 import {Searchbar} from 'react-native-paper';
+import service from '../services/service';
 
 function ExploreScreen() {
   const navigation = useNavigation<ExploreScreenProps>();
@@ -67,6 +68,24 @@ function ExploreScreen() {
         'https://www.campbellsfoodservice.com/wp-content/uploads/2016/01/goldfish-logo-400x150.png',
     },
   ]);
+  const [userPoints, setUserPoints] = React.useState(1000);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const response = await service.home();
+      if (response.brands) {
+        setBrandList(response.brands);
+      }
+      if (response.offers) {
+        setOfferList(response.offers);
+      }
+      if (response.users.user1) {
+        setUserPoints(response.users.user1.points);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const styles = StyleSheet.create({
     container: {
@@ -132,6 +151,10 @@ function ExploreScreen() {
       padding: 16,
       borderRadius: 16,
     },
+    text: {
+      fontSize: 16,
+      color: 'black',
+    },
   });
 
   function topPart() {
@@ -140,7 +163,7 @@ function ExploreScreen() {
         <Text style={styles.welcomeText}>Welcome</Text>
 
         <View style={styles.pointsView}>
-          <Text style={styles.pointsText}>1000</Text>
+          <Text style={styles.pointsText}>{userPoints}</Text>
         </View>
       </View>
     );
@@ -180,7 +203,7 @@ function ExploreScreen() {
   }
 
   function renderOfferItem(item: {
-    brand_name: string;
+    item_name: string;
     points: string;
     img_url: string;
   }) {
@@ -191,8 +214,8 @@ function ExploreScreen() {
         </View>
 
         <View>
-          <Text>{item.brand_name}</Text>
-          <Text>{item.points}</Text>
+          <Text style={styles.text}>{item.item_name + '\n'}</Text>
+          <Text style={styles.text}>{item.points + ' points'}</Text>
         </View>
       </View>
     );
