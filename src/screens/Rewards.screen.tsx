@@ -67,7 +67,7 @@ function RewardsScreen() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#C6F5C7',
+      backgroundColor: '#daeddb',
     },
     topPart: {
       flexDirection: 'row',

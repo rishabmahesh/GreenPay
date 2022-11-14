@@ -15,6 +15,7 @@ function RedeemScreen({route}: any) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#daeddb',
     },
     imageView: {
       alignItems: 'center',
@@ -87,7 +88,11 @@ function RedeemScreen({route}: any) {
   function submitButton() {
     return (
       <View style={styles.buttonView}>
-        <Button mode="contained" style={styles.button} onPress={buttonPressed}>
+        <Button
+          mode="contained"
+          style={styles.button}
+          onPress={buttonPressed}
+          color="#00B8AB">
           Submit
         </Button>
       </View>

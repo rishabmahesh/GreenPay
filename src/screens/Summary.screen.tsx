@@ -8,6 +8,7 @@ function SummaryScreen({route}: any) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: '#daeddb',
     },
     topPart: {
       flexDirection: 'row',
@@ -16,7 +17,6 @@ function SummaryScreen({route}: any) {
       paddingHorizontal: 16,
       height: 60,
       width: '100%',
-      backgroundColor: 'red',
     },
     summaryText: {
       fontSize: 28,
@@ -66,7 +66,7 @@ function SummaryScreen({route}: any) {
 
   function displaySummary() {
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.row}>
           <Text style={[styles.rowText, styles.rowTextBold]}>Item Name</Text>
           <Text style={[styles.rowText, styles.rowTextBold]}>Price</Text>

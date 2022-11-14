@@ -44,6 +44,7 @@ function CameraScreen() {
       paddingTop: 20,
       paddingBottom: 20,
       alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: 'white',
       zIndex: 1,
     },
@@ -91,7 +92,11 @@ function CameraScreen() {
   function renderFooter() {
     return (
       <View style={styles.footerView}>
-        <Button mode="contained" onPress={takePhoto}>
+        <Button
+          mode="contained"
+          onPress={takePhoto}
+          icon="camera"
+          color="#00B8AB">
           Click photo
         </Button>
       </View>

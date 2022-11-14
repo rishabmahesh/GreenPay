@@ -12,7 +12,7 @@ import RewardsScreen from '../screens/Rewards.screen';
 import CameraScreen from '../screens/Camera.screen';
 import RedeemScreen from '../screens/Redeem.screen';
 import SummaryScreen from '../screens/Summary.screen';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AD from 'react-native-vector-icons/AntDesign';
 
 const ExploreStack = () => {
   const NativeExploreStack = createNativeStackNavigator<ExploreStackParams>();
@@ -54,9 +54,30 @@ function Routes() {
 
   return (
     <Tab.Navigator barStyle={{backgroundColor: '#00B8AB'}}>
-      <Tab.Screen name="Explore" component={ExploreStack} />
-      <Tab.Screen name="Camera" component={CameraStack} />
-      <Tab.Screen name="Rewards" component={RewardsStack} />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreStack}
+        options={{
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({color}) => <AD name="home" color={color} size={18} />,
+        }}
+      />
+      <Tab.Screen
+        name="Camera"
+        component={CameraStack}
+        options={{
+          tabBarLabel: 'Camera',
+          tabBarIcon: ({color}) => <AD name="camera" color={color} size={18} />,
+        }}
+      />
+      <Tab.Screen
+        name="Rewards"
+        component={RewardsStack}
+        options={{
+          tabBarLabel: 'Rewards',
+          tabBarIcon: ({color}) => <AD name="gift" color={color} size={18} />,
+        }}
+      />
     </Tab.Navigator>
   );
 }
